@@ -1,4 +1,4 @@
-const GEMINI_MODEL = 'gemini-2.0-flash';
+const GEMINI_MODEL = 'gemini-2.5-flash';
 const GEMINI_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
 
 interface GeminiResponse {
@@ -41,7 +41,7 @@ const responseSchema = {
 		},
 		character_lighting: {
 			type: 'INTEGER',
-			description: 'キャラクターライティング値（0〜200）'
+			description: 'キャラクターライティング値（0〜100）'
 		},
 		brightness_manual: {
 			type: 'INTEGER',
