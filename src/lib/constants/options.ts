@@ -8,7 +8,8 @@ import type {
 	ShadowPref,
 	SkinTone,
 	TexturePref,
-	TimeOfDay
+	TimeOfDay,
+	Weather
 } from '$lib/types';
 
 interface Option<T extends string> {
@@ -48,6 +49,12 @@ export const LOCATIONS: readonly Option<Location>[] = [
 export const TIME_OF_DAYS: readonly Option<TimeOfDay>[] = [
 	{ value: 'day', label: '昼' },
 	{ value: 'night', label: '夜' }
+] as const;
+
+export const WEATHERS: readonly Option<Weather>[] = [
+	{ value: 'sunny', label: '晴れ' },
+	{ value: 'cloudy', label: '曇り' },
+	{ value: 'rainy', label: '雨' }
 ] as const;
 
 export const AMBIENT_COLORS: readonly Option<AmbientColor>[] = [

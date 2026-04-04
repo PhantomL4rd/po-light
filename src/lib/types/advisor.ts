@@ -7,6 +7,7 @@ export type SkinTone = 'normal' | 'tan' | 'blue' | 'dark_exotic' | 'light_exotic
 
 export type Location = 'studio' | 'outdoor';
 export type TimeOfDay = 'day' | 'night';
+export type Weather = 'sunny' | 'cloudy' | 'rainy';
 export type AmbientColor = 'warm' | 'cool' | 'neutral' | 'none';
 export type ShadowPref = 'strong' | 'natural' | 'flat';
 export type TexturePref = 'glossy' | 'matte' | 'natural';
@@ -22,6 +23,7 @@ export interface SimpleInput {
 export interface DetailedInput extends SimpleInput {
 	location?: Location;
 	timeOfDay?: TimeOfDay;
+	weather?: Weather;
 	backlight?: boolean;
 	ambientColor?: AmbientColor;
 	shadowPref?: ShadowPref;

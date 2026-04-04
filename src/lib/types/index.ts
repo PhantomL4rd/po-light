@@ -14,5 +14,6 @@ export type {
 	SimpleInput,
 	SkinTone,
 	TexturePref,
-	TimeOfDay
+	TimeOfDay,
+	Weather
 } from './advisor';

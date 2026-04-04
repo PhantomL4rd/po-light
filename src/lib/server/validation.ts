@@ -8,6 +8,7 @@ const inputSchema = z.object({
 	skinTone: z.enum(['normal', 'tan', 'blue', 'dark_exotic', 'light_exotic']),
 	location: z.enum(['studio', 'outdoor']).optional(),
 	timeOfDay: z.enum(['day', 'night']).optional(),
+	weather: z.enum(['sunny', 'cloudy', 'rainy']).optional(),
 	backlight: z.boolean().optional(),
 	ambientColor: z.enum(['warm', 'cool', 'neutral', 'none']).optional(),
 	shadowPref: z.enum(['strong', 'natural', 'flat']).optional(),

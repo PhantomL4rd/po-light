@@ -9,5 +9,6 @@ export {
 	SHADOW_PREFS,
 	SKIN_TONES,
 	TEXTURE_PREFS,
-	TIME_OF_DAYS
+	TIME_OF_DAYS,
+	WEATHERS
 } from './options';
