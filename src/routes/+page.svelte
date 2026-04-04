@@ -1,16 +1,16 @@
 <script lang="ts">
-import { Loader2 } from 'lucide-svelte';
+import Loader2 from '@lucide/svelte/icons/loader-2';
 import { onMount } from 'svelte';
+import { saveToHistory } from '$lib/client/history';
 import AdvisorForm from '$lib/components/advisor/AdvisorForm.svelte';
 import AdvisorResult from '$lib/components/result/AdvisorResult.svelte';
-import { saveToHistory } from '$lib/client/history';
 import type { AdvisorResponse, DetailedInput } from '$lib/types';
 
 let result = $state<AdvisorResponse | null>(null);
 let currentInput = $state<DetailedInput | null>(null);
 let isLoading = $state(false);
 let errorMessage = $state<string | null>(null);
-let formRef: AdvisorForm | undefined = $state();
+let initialInput = $state<DetailedInput | undefined>(undefined);
 
 async function handleSubmit(input: DetailedInput) {
 	isLoading = true;
@@ -44,10 +44,8 @@ async function handleSubmit(input: DetailedInput) {
 function handleRate(rating: number) {
 	if (!currentInput || !result) return;
 
-	// LocalStorageに保存（全評価）
 	saveToHistory(currentInput, result, rating);
 
-	// 「よかった」のみD1に匿名送信（fire-and-forget）
 	if (rating === 1) {
 		fetch('/api/feedback', {
 			method: 'POST',
@@ -57,9 +55,7 @@ function handleRate(rating: number) {
 				output: result,
 				rating
 			})
-		}).catch(() => {
-			// 匿名送信の失敗は無視
-		});
+		}).catch(() => {});
 	}
 }
 
@@ -68,8 +64,7 @@ onMount(() => {
 	if (stored) {
 		sessionStorage.removeItem('reuse_input');
 		try {
-			const input: DetailedInput = JSON.parse(stored);
-			formRef?.restoreInput(input);
+			initialInput = JSON.parse(stored);
 		} catch {
 			// ignore
 		}
@@ -78,7 +73,7 @@ onMount(() => {
 </script>
 
 <div class="space-y-8">
-	<AdvisorForm bind:this={formRef} onsubmit={handleSubmit} loading={isLoading} />
+	<AdvisorForm onsubmit={handleSubmit} loading={isLoading} {initialInput} />
 
 	{#if isLoading}
 		<div class="flex items-center justify-center gap-2 py-8 text-muted-foreground">

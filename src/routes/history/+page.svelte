@@ -1,9 +1,9 @@
 <script lang="ts">
-import { Inbox } from 'lucide-svelte';
+import Inbox from '@lucide/svelte/icons/inbox';
 import { onMount } from 'svelte';
 import { goto } from '$app/navigation';
-import FeedbackCard from '$lib/components/history/FeedbackCard.svelte';
 import { getHistory, type HistoryEntry } from '$lib/client/history';
+import FeedbackCard from '$lib/components/history/FeedbackCard.svelte';
 
 let entries = $state<HistoryEntry[]>([]);
 

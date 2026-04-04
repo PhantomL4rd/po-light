@@ -1,9 +1,11 @@
 <script lang="ts">
-import { RotateCcw, ThumbsDown, ThumbsUp } from 'lucide-svelte';
+import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
+import ThumbsDown from '@lucide/svelte/icons/thumbs-down';
+import ThumbsUp from '@lucide/svelte/icons/thumbs-up';
+import type { HistoryEntry } from '$lib/client/history';
 import { Button } from '$lib/components/ui/button';
 import * as Card from '$lib/components/ui/card';
 import { FACE_TYPES, FRAMINGS, findLabel, GROUP_SIZES, SKIN_TONES } from '$lib/constants';
-import type { HistoryEntry } from '$lib/client/history';
 
 let { entry, onreuse }: { entry: HistoryEntry; onreuse: () => void } = $props();
 </script>

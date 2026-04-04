@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Sparkles } from 'lucide-svelte';
+import Sparkles from '@lucide/svelte/icons/sparkles';
 import { Button } from '$lib/components/ui/button';
 import * as Tabs from '$lib/components/ui/tabs';
 import type { DetailedInput } from '$lib/types';
@@ -8,10 +8,12 @@ import SimpleFields from './SimpleFields.svelte';
 
 let {
 	onsubmit,
-	loading = false
+	loading = false,
+	initialInput = undefined
 }: {
 	onsubmit: (input: DetailedInput) => void;
 	loading?: boolean;
+	initialInput?: DetailedInput;
 } = $props();
 
 let mode = $state<'simple' | 'detailed'>('simple');
@@ -23,9 +25,18 @@ let formData = $state<DetailedInput>({
 	skinTone: 'normal'
 });
 
+// initialInput が渡されたらフォームを復元
+$effect(() => {
+	if (initialInput) {
+		formData = { ...initialInput };
+		if (initialInput.location || initialInput.timeOfDay || initialInput.mood) {
+			mode = 'detailed';
+		}
+	}
+});
+
 function handleSubmit() {
 	if (mode === 'simple') {
-		// かんたんモード: 詳細フィールドを除外
 		onsubmit({
 			faceType: formData.faceType,
 			framing: formData.framing,
@@ -34,14 +45,6 @@ function handleSubmit() {
 		});
 	} else {
 		onsubmit({ ...formData });
-	}
-}
-
-/** 再利用データでフォームを復元する */
-export function restoreInput(input: DetailedInput) {
-	formData = { ...input };
-	if (input.location || input.timeOfDay || input.mood) {
-		mode = 'detailed';
 	}
 }
 </script>

@@ -1,6 +1,6 @@
 import type { DrizzleD1Database } from 'drizzle-orm/d1';
-import { lightingFeedbacks } from './schema';
 import type * as schema from './schema';
+import { lightingFeedbacks } from './schema';
 
 type DB = DrizzleD1Database<typeof schema>;
 

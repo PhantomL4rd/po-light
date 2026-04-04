@@ -1,5 +1,6 @@
 <script lang="ts">
-import { History, Lightbulb } from 'lucide-svelte';
+import History from '@lucide/svelte/icons/history';
+import Lightbulb from '@lucide/svelte/icons/lightbulb';
 import { page } from '$app/state';
 </script>
 

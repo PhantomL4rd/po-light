@@ -1,5 +1,6 @@
 <script lang="ts">
-import { ThumbsDown, ThumbsUp } from 'lucide-svelte';
+import ThumbsDown from '@lucide/svelte/icons/thumbs-down';
+import ThumbsUp from '@lucide/svelte/icons/thumbs-up';
 import { Button } from '$lib/components/ui/button';
 
 let {

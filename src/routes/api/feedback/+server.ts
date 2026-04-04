@@ -15,13 +15,7 @@ export const POST: RequestHandler = async ({ request, platform }) => {
 		error(400, 'Invalid feedback');
 	}
 
-	const id = await saveFeedback(
-		getDb(db),
-		JSON.stringify(input),
-		JSON.stringify(output),
-		1,
-		null
-	);
+	const id = await saveFeedback(getDb(db), JSON.stringify(input), JSON.stringify(output), 1, null);
 
 	return json({ id });
 };
