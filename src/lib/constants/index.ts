@@ -1,0 +1,13 @@
+export {
+	AMBIENT_COLORS,
+	FACE_TYPES,
+	FRAMINGS,
+	findLabel,
+	GROUP_SIZES,
+	LOCATIONS,
+	MOODS,
+	SHADOW_PREFS,
+	SKIN_TONES,
+	TEXTURE_PREFS,
+	TIME_OF_DAYS
+} from './options';

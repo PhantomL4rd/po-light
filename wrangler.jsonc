@@ -1,0 +1,23 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "po-light",
+	"compatibility_date": "2026-04-04",
+	"compatibility_flags": ["nodejs_als"],
+	"pages_build_output_dir": ".svelte-kit/cloudflare",
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "po-light-db",
+			"database_id": "298d156a-aa9b-4ce6-bec7-edba165c614c"
+		}
+	],
+	"durable_objects": {
+		"bindings": [
+			{
+				"name": "IP_RATE_LIMITER",
+				"class_name": "IpRateLimiter",
+				"script_name": "fourseasons-rate-limiter"
+			}
+		]
+	}
+}
