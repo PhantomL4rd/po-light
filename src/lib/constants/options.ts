@@ -47,7 +47,9 @@ export const LOCATIONS: readonly Option<Location>[] = [
 ] as const;
 
 export const TIME_OF_DAYS: readonly Option<TimeOfDay>[] = [
+	{ value: 'morning', label: '朝' },
 	{ value: 'day', label: '昼' },
+	{ value: 'evening', label: '夕方' },
 	{ value: 'night', label: '夜' }
 ] as const;
 

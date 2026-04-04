@@ -6,7 +6,7 @@ export type GroupSize = 'solo' | 'group';
 export type SkinTone = 'normal' | 'tan' | 'blue' | 'dark_exotic' | 'light_exotic';
 
 export type Location = 'studio' | 'outdoor';
-export type TimeOfDay = 'day' | 'night';
+export type TimeOfDay = 'morning' | 'day' | 'evening' | 'night';
 export type Weather = 'sunny' | 'cloudy' | 'rainy';
 export type AmbientColor = 'warm' | 'cool' | 'neutral' | 'none';
 export type ShadowPref = 'strong' | 'natural' | 'flat';

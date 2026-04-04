@@ -7,7 +7,7 @@ const inputSchema = z.object({
 	groupSize: z.enum(['solo', 'group']),
 	skinTone: z.enum(['normal', 'tan', 'blue', 'dark_exotic', 'light_exotic']),
 	location: z.enum(['studio', 'outdoor']).optional(),
-	timeOfDay: z.enum(['day', 'night']).optional(),
+	timeOfDay: z.enum(['morning', 'day', 'evening', 'night']).optional(),
 	weather: z.enum(['sunny', 'cloudy', 'rainy']).optional(),
 	backlight: z.boolean().optional(),
 	ambientColor: z.enum(['warm', 'cool', 'neutral', 'none']).optional(),
