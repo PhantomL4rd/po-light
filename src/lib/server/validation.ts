@@ -33,8 +33,8 @@ const lightConfigSchema = z.object({
 
 const advisorResponseSchema = z.object({
 	lights: z.tuple([lightConfigSchema, lightConfigSchema, lightConfigSchema]),
-	character_lighting: z.number(),
-	brightness_manual: z.number(),
+	character_lighting: z.number().int().min(0).max(100),
+	brightness_manual: z.number().int().min(0).max(200),
 	notes: z.string()
 });
 

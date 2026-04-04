@@ -1,7 +1,5 @@
 <script lang="ts">
 import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
-import ThumbsDown from '@lucide/svelte/icons/thumbs-down';
-import ThumbsUp from '@lucide/svelte/icons/thumbs-up';
 import type { HistoryEntry } from '$lib/client/history';
 import { Button } from '$lib/components/ui/button';
 import * as Card from '$lib/components/ui/card';
@@ -16,11 +14,6 @@ let { entry, onreuse }: { entry: HistoryEntry; onreuse: () => void } = $props();
 			<Card.Title class="text-sm">
 				{findLabel(FACE_TYPES, entry.input.faceType)} / {findLabel(FRAMINGS, entry.input.framing)} / {findLabel(GROUP_SIZES, entry.input.groupSize)} / {findLabel(SKIN_TONES, entry.input.skinTone)}
 			</Card.Title>
-			{#if entry.rating === 1}
-				<ThumbsUp class="size-4 text-green-500" />
-			{:else}
-				<ThumbsDown class="size-4 text-destructive" />
-			{/if}
 		</div>
 		<p class="text-xs text-muted-foreground">
 			{new Date(entry.createdAt).toLocaleString('ja-JP')}

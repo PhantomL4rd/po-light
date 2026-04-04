@@ -41,22 +41,20 @@ async function handleSubmit(input: DetailedInput) {
 	}
 }
 
-function handleRate(rating: number) {
+function handleSave() {
 	if (!currentInput || !result) return;
 
-	saveToHistory(currentInput, result, rating);
+	saveToHistory(currentInput, result);
 
-	if (rating === 1) {
-		fetch('/api/feedback', {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify({
-				input: currentInput,
-				output: result,
-				rating
-			})
-		}).catch(() => {});
-	}
+	fetch('/api/feedback', {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({
+			input: currentInput,
+			output: result,
+			rating: 1
+		})
+	}).catch(() => {});
 }
 
 onMount(() => {
@@ -89,6 +87,6 @@ onMount(() => {
 	{/if}
 
 	{#if result && currentInput}
-		<AdvisorResult {result} input={currentInput} onsave={handleRate} />
+		<AdvisorResult {result} input={currentInput} onsave={handleSave} />
 	{/if}
 </div>

@@ -1,5 +1,4 @@
 <script lang="ts">
-import ThumbsDown from '@lucide/svelte/icons/thumbs-down';
 import ThumbsUp from '@lucide/svelte/icons/thumbs-up';
 import { Button } from '$lib/components/ui/button';
 
@@ -7,14 +6,14 @@ let {
 	onsave,
 	saving = false
 }: {
-	onsave: (rating: number) => void;
+	onsave: () => void;
 	saving?: boolean;
 } = $props();
 
 let saved = $state(false);
 
-function handleRate(rating: number) {
-	onsave(rating);
+function handleSave() {
+	onsave();
 	saved = true;
 }
 </script>
@@ -24,14 +23,10 @@ function handleRate(rating: number) {
 		保存しました
 	</div>
 {:else}
-	<div class="flex items-center justify-center gap-3">
-		<Button variant="outline" size="sm" disabled={saving} onclick={() => handleRate(1)}>
+	<div class="flex items-center justify-center">
+		<Button variant="outline" size="sm" disabled={saving} onclick={handleSave}>
 			<ThumbsUp class="size-4" />
 			よかった
-		</Button>
-		<Button variant="outline" size="sm" disabled={saving} onclick={() => handleRate(0)}>
-			<ThumbsDown class="size-4" />
-			いまいち
 		</Button>
 	</div>
 {/if}

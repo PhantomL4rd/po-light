@@ -108,6 +108,16 @@ describe('validateAdvisorResponse', () => {
 		expect(() => validateAdvisorResponse(bad)).toThrow();
 	});
 
+	it('character_lightingが0-100の範囲外の場合はエラー', () => {
+		const bad = { ...validResponse, character_lighting: 101 };
+		expect(() => validateAdvisorResponse(bad)).toThrow();
+	});
+
+	it('brightness_manualが0-200の範囲外の場合はエラー', () => {
+		const bad = { ...validResponse, brightness_manual: 201 };
+		expect(() => validateAdvisorResponse(bad)).toThrow();
+	});
+
 	it('必須フィールドが欠けている場合はエラー', () => {
 		const { notes: _, ...bad } = validResponse;
 		expect(() => validateAdvisorResponse(bad)).toThrow();

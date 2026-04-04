@@ -6,20 +6,14 @@ export interface HistoryEntry {
 	id: string;
 	input: DetailedInput;
 	output: AdvisorResponse;
-	rating: number;
 	createdAt: string;
 }
 
-export function saveToHistory(
-	input: DetailedInput,
-	output: AdvisorResponse,
-	rating: number
-): HistoryEntry {
+export function saveToHistory(input: DetailedInput, output: AdvisorResponse): HistoryEntry {
 	const entry: HistoryEntry = {
 		id: crypto.randomUUID(),
 		input,
 		output,
-		rating,
 		createdAt: new Date().toISOString()
 	};
 

@@ -11,7 +11,7 @@ let {
 }: {
 	result: AdvisorResponse;
 	input: DetailedInput;
-	onsave: (rating: number) => void;
+	onsave: () => void;
 } = $props();
 </script>
 
