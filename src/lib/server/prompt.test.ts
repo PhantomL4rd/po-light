@@ -35,22 +35,24 @@ describe('buildUserPrompt', () => {
 			groupSize: 'group',
 			skinTone: 'tan',
 			location: 'outdoor',
-			timeOfDay: 'night',
+			timeOfDay: 'evening',
+			weather: 'sunny',
 			backlight: true,
+			sunExposure: 'direct',
 			ambientColor: 'cool',
 			shadowPref: 'strong',
-			texturePref: 'glossy',
-			mood: 'emotional'
+			texturePref: 'glossy'
 		};
 		const prompt = buildUserPrompt(input);
 
 		expect(prompt).toContain('撮影場所:');
 		expect(prompt).toContain('時間帯:');
+		expect(prompt).toContain('天候:');
 		expect(prompt).toContain('逆光:');
+		expect(prompt).toContain('日照:');
 		expect(prompt).toContain('環境光の色:');
 		expect(prompt).toContain('影の好み:');
 		expect(prompt).toContain('質感の好み:');
-		expect(prompt).toContain('雰囲気:');
 	});
 
 	it('backlight=false のときは「なし」と表示', () => {

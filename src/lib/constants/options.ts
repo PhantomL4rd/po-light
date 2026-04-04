@@ -4,9 +4,9 @@ import type {
 	Framing,
 	GroupSize,
 	Location,
-	Mood,
 	ShadowPref,
 	SkinTone,
+	SunExposure,
 	TexturePref,
 	TimeOfDay,
 	Weather
@@ -59,6 +59,11 @@ export const WEATHERS: readonly Option<Weather>[] = [
 	{ value: 'rainy', label: '雨' }
 ] as const;
 
+export const SUN_EXPOSURES: readonly Option<SunExposure>[] = [
+	{ value: 'direct', label: '日なた' },
+	{ value: 'shade', label: '日陰' }
+] as const;
+
 export const AMBIENT_COLORS: readonly Option<AmbientColor>[] = [
 	{ value: 'warm', label: '暖色系' },
 	{ value: 'cool', label: '寒色系' },
@@ -69,20 +74,13 @@ export const AMBIENT_COLORS: readonly Option<AmbientColor>[] = [
 export const SHADOW_PREFS: readonly Option<ShadowPref>[] = [
 	{ value: 'strong', label: '陰影強め' },
 	{ value: 'natural', label: '自然' },
-	{ value: 'flat', label: 'フラットでいい' }
+	{ value: 'flat', label: 'フラット' }
 ] as const;
 
 export const TEXTURE_PREFS: readonly Option<TexturePref>[] = [
 	{ value: 'glossy', label: 'ツヤ感・透明感' },
 	{ value: 'matte', label: 'マット' },
 	{ value: 'natural', label: 'ナチュラル' }
-] as const;
-
-export const MOODS: readonly Option<Mood>[] = [
-	{ value: 'bright', label: '自然に明るく' },
-	{ value: 'doll_like', label: 'ドール感・立体的' },
-	{ value: 'emotional', label: 'エモい・暗め' },
-	{ value: 'cool', label: 'かっこよく' }
 ] as const;
 
 /** value → label の変換ヘルパー */

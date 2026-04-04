@@ -18,13 +18,14 @@ describe('validateInput', () => {
 			framing: 'full_body',
 			groupSize: 'group',
 			skinTone: 'tan',
-			location: 'studio',
-			timeOfDay: 'night',
+			location: 'outdoor',
+			timeOfDay: 'evening',
+			weather: 'sunny',
 			backlight: true,
+			sunExposure: 'direct',
 			ambientColor: 'warm',
 			shadowPref: 'strong',
-			texturePref: 'glossy',
-			mood: 'doll_like'
+			texturePref: 'glossy'
 		};
 		expect(validateInput(input)).toEqual(input);
 	});
@@ -89,6 +90,26 @@ describe('validateAdvisorResponse', () => {
 
 	it('有効なAIレスポンスを受け付ける', () => {
 		expect(validateAdvisorResponse(validResponse)).toEqual(validResponse);
+	});
+
+	it('ライト3がnullフィールドのレスポンスを受け付ける', () => {
+		const nullLight3Response = {
+			...validResponse,
+			lights: [
+				validResponse.lights[0],
+				validResponse.lights[1],
+				{
+					id: 3,
+					role: null,
+					type: null,
+					rgb: null,
+					direction: null,
+					vertical_angle: null,
+					tip: null
+				}
+			]
+		};
+		expect(validateAdvisorResponse(nullLight3Response)).toEqual(nullLight3Response);
 	});
 
 	it('lightsが3つでない場合はエラー', () => {

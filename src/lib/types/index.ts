@@ -8,11 +8,11 @@ export type {
 	LightConfig,
 	LightingFeedback,
 	Location,
-	Mood,
 	RGB,
 	ShadowPref,
 	SimpleInput,
 	SkinTone,
+	SunExposure,
 	TexturePref,
 	TimeOfDay,
 	Weather

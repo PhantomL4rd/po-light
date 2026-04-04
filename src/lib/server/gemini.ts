@@ -16,15 +16,26 @@ const responseSchema = {
 	properties: {
 		lights: {
 			type: 'ARRAY',
-			description: 'ライト1〜3の設定。必ず3つ。',
+			description:
+				'ライト1〜3の設定。必ず3つ。不要なライトはrole/type/rgb/direction/vertical_angle/tipをnullにする。',
 			items: {
 				type: 'OBJECT',
 				properties: {
 					id: { type: 'INTEGER', description: 'ライト番号（1, 2, 3）' },
-					role: { type: 'STRING', description: '役割名（例: メインライト（キーライト））' },
-					type: { type: 'INTEGER', description: 'タイプ（1=狭い, 2=中, 3=広い）' },
+					role: {
+						type: 'STRING',
+						description: '役割名（例: キーライト）。不要ならnull',
+						nullable: true
+					},
+					type: {
+						type: 'INTEGER',
+						description: 'タイプ（1=狭い, 2=中, 3=広い）。不要ならnull',
+						nullable: true
+					},
 					rgb: {
 						type: 'OBJECT',
+						description: '不要ならnull',
+						nullable: true,
 						properties: {
 							r: { type: 'INTEGER', description: '0〜255' },
 							g: { type: 'INTEGER', description: '0〜255' },
@@ -32,9 +43,9 @@ const responseSchema = {
 						},
 						required: ['r', 'g', 'b']
 					},
-					direction: { type: 'STRING', description: 'ライトの方向' },
-					vertical_angle: { type: 'STRING', description: '垂直角度' },
-					tip: { type: 'STRING', description: '設置時のヒント' }
+					direction: { type: 'STRING', description: 'ライトの方向。不要ならnull', nullable: true },
+					vertical_angle: { type: 'STRING', description: '垂直角度。不要ならnull', nullable: true },
+					tip: { type: 'STRING', description: '設置時のヒント。不要ならnull', nullable: true }
 				},
 				required: ['id', 'role', 'type', 'rgb', 'direction', 'vertical_angle', 'tip']
 			}

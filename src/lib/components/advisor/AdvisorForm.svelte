@@ -29,7 +29,7 @@ let formData = $state<DetailedInput>({
 $effect(() => {
 	if (initialInput) {
 		formData = { ...initialInput };
-		if (initialInput.location || initialInput.timeOfDay || initialInput.mood) {
+		if (initialInput.location || initialInput.timeOfDay || initialInput.weather) {
 			mode = 'detailed';
 		}
 	}

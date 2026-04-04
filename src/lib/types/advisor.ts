@@ -8,10 +8,10 @@ export type SkinTone = 'normal' | 'tan' | 'blue' | 'dark_exotic' | 'light_exotic
 export type Location = 'studio' | 'outdoor';
 export type TimeOfDay = 'morning' | 'day' | 'evening' | 'night';
 export type Weather = 'sunny' | 'cloudy' | 'rainy';
+export type SunExposure = 'direct' | 'shade';
 export type AmbientColor = 'warm' | 'cool' | 'neutral' | 'none';
 export type ShadowPref = 'strong' | 'natural' | 'flat';
 export type TexturePref = 'glossy' | 'matte' | 'natural';
-export type Mood = 'bright' | 'doll_like' | 'emotional' | 'cool';
 
 export interface SimpleInput {
 	faceType: FaceType;
@@ -25,10 +25,10 @@ export interface DetailedInput extends SimpleInput {
 	timeOfDay?: TimeOfDay;
 	weather?: Weather;
 	backlight?: boolean;
+	sunExposure?: SunExposure;
 	ambientColor?: AmbientColor;
 	shadowPref?: ShadowPref;
 	texturePref?: TexturePref;
-	mood?: Mood;
 }
 
 // --- AIレスポンス ---
@@ -41,12 +41,12 @@ export interface RGB {
 
 export interface LightConfig {
 	id: number;
-	role: string;
-	type: number;
-	rgb: RGB;
-	direction: string;
-	vertical_angle: string;
-	tip: string;
+	role: string | null;
+	type: number | null;
+	rgb: RGB | null;
+	direction: string | null;
+	vertical_angle: string | null;
+	tip: string | null;
 }
 
 export interface AdvisorResponse {

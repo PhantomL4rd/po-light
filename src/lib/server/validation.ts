@@ -10,10 +10,10 @@ const inputSchema = z.object({
 	timeOfDay: z.enum(['morning', 'day', 'evening', 'night']).optional(),
 	weather: z.enum(['sunny', 'cloudy', 'rainy']).optional(),
 	backlight: z.boolean().optional(),
+	sunExposure: z.enum(['direct', 'shade']).optional(),
 	ambientColor: z.enum(['warm', 'cool', 'neutral', 'none']).optional(),
 	shadowPref: z.enum(['strong', 'natural', 'flat']).optional(),
-	texturePref: z.enum(['glossy', 'matte', 'natural']).optional(),
-	mood: z.enum(['bright', 'doll_like', 'emotional', 'cool']).optional()
+	texturePref: z.enum(['glossy', 'matte', 'natural']).optional()
 });
 
 const rgbSchema = z.object({
@@ -24,12 +24,12 @@ const rgbSchema = z.object({
 
 const lightConfigSchema = z.object({
 	id: z.number(),
-	role: z.string(),
-	type: z.number(),
-	rgb: rgbSchema,
-	direction: z.string(),
-	vertical_angle: z.string(),
-	tip: z.string()
+	role: z.string().nullable(),
+	type: z.number().nullable(),
+	rgb: rgbSchema.nullable(),
+	direction: z.string().nullable(),
+	vertical_angle: z.string().nullable(),
+	tip: z.string().nullable()
 });
 
 const advisorResponseSchema = z.object({

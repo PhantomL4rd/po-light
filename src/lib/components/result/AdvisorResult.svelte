@@ -16,7 +16,7 @@ let {
 </script>
 
 <div class="space-y-4">
-	{#each result.lights as light (light.id)}
+	{#each result.lights.filter((l) => l.role !== null) as light (light.id)}
 		<LightCard {light} />
 	{/each}
 
