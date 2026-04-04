@@ -1,4 +1,4 @@
-const PO_LIGHT_DAILY_LIMIT = 10;
+const PO_LIGHT_DAILY_LIMIT = 50;
 
 interface RateLimitResult {
 	allowed: boolean;
