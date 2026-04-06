@@ -1,6 +1,6 @@
 import { error, json } from '@sveltejs/kit';
 import { callGemini } from '$lib/server/gemini';
-import { buildUserPrompt, SYSTEM_PROMPT } from '$lib/server/prompt';
+import { buildSystemPrompt, buildUserPrompt } from '$lib/server/prompt';
 import { checkRateLimit } from '$lib/server/rate-limit';
 import { validateAdvisorResponse, validateInput } from '$lib/server/validation';
 import type { AdvisorResponse, DetailedInput } from '$lib/types';
@@ -31,8 +31,9 @@ export const POST: RequestHandler = async ({ request, platform, getClientAddress
 	const input: DetailedInput = parseInput(body);
 
 	// プロンプト生成 → Gemini呼び出し
+	const systemPrompt = buildSystemPrompt(input);
 	const userPrompt = buildUserPrompt(input);
-	const rawResponse: unknown = await callGeminiSafe(GEMINI_API_KEY, userPrompt);
+	const rawResponse: unknown = await callGeminiSafe(GEMINI_API_KEY, systemPrompt, userPrompt);
 
 	// AIレスポンスバリデーション
 	const validated: AdvisorResponse = parseResponse(rawResponse);
@@ -48,9 +49,13 @@ function parseInput(body: unknown): DetailedInput {
 	}
 }
 
-async function callGeminiSafe(apiKey: string, userPrompt: string): Promise<unknown> {
+async function callGeminiSafe(
+	apiKey: string,
+	systemPrompt: string,
+	userPrompt: string
+): Promise<unknown> {
 	try {
-		return await callGemini(apiKey, SYSTEM_PROMPT, userPrompt);
+		return await callGemini(apiKey, systemPrompt, userPrompt);
 	} catch (e) {
 		const message = e instanceof Error ? e.message : 'AI呼び出しに失敗しました';
 		error(502, message);

@@ -1,11 +1,55 @@
 import { describe, expect, it } from 'vitest';
 import type { DetailedInput } from '$lib/types';
-import { buildUserPrompt, SYSTEM_PROMPT } from './prompt';
+import { buildSystemPrompt, buildUserPrompt } from './prompt';
 
-describe('SYSTEM_PROMPT', () => {
-	it('GPoseライティング専門家としての指示を含む', () => {
-		expect(SYSTEM_PROMPT).toContain('GPose');
-		expect(SYSTEM_PROMPT).toContain('JSON');
+describe('buildSystemPrompt', () => {
+	it('共通の基本指示を常に含む', () => {
+		const prompt = buildSystemPrompt({
+			faceType: 'standard',
+			framing: 'half_body',
+			groupSize: 'solo',
+			skinTone: 'normal'
+		});
+		expect(prompt).toContain('GPose');
+		expect(prompt).toContain('JSON');
+	});
+
+	it('屋外のとき屋外セクションを含み、屋内セクションを含まない', () => {
+		const prompt = buildSystemPrompt({
+			faceType: 'standard',
+			framing: 'half_body',
+			groupSize: 'solo',
+			skinTone: 'normal',
+			location: 'outdoor',
+			timeOfDay: 'day',
+			weather: 'sunny',
+			sunExposure: 'direct'
+		});
+		expect(prompt).toContain('屋外撮影への対応');
+		expect(prompt).not.toContain('スタジオ撮影への対応');
+	});
+
+	it('スタジオのとき屋内セクションを含み、屋外セクションを含まない', () => {
+		const prompt = buildSystemPrompt({
+			faceType: 'standard',
+			framing: 'half_body',
+			groupSize: 'solo',
+			skinTone: 'normal',
+			location: 'studio'
+		});
+		expect(prompt).toContain('スタジオ撮影への対応');
+		expect(prompt).not.toContain('屋外撮影への対応');
+	});
+
+	it('locationがundefined（かんたんモード）のとき屋内前提になる', () => {
+		const prompt = buildSystemPrompt({
+			faceType: 'standard',
+			framing: 'half_body',
+			groupSize: 'solo',
+			skinTone: 'normal'
+		});
+		expect(prompt).toContain('スタジオ撮影への対応');
+		expect(prompt).not.toContain('屋外撮影への対応');
 	});
 });
 
