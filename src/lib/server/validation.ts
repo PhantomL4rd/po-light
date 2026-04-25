@@ -2,7 +2,6 @@ import { z } from 'zod';
 import type { AdvisorResponse, DetailedInput } from '$lib/types';
 
 const inputSchema = z.object({
-	faceType: z.enum(['round_small', 'standard', 'angular']),
 	framing: z.enum(['half_body', 'full_body']),
 	groupSize: z.enum(['solo', 'group']),
 	skinTone: z.enum(['normal', 'tan', 'blue', 'dark_exotic', 'light_exotic']),
@@ -11,9 +10,7 @@ const inputSchema = z.object({
 	weather: z.enum(['sunny', 'cloudy', 'rainy']).optional(),
 	backlight: z.boolean().optional(),
 	sunExposure: z.enum(['direct', 'shade']).optional(),
-	ambientColor: z.enum(['warm', 'cool', 'neutral', 'none']).optional(),
-	shadowPref: z.enum(['strong', 'natural', 'flat']).optional(),
-	texturePref: z.enum(['glossy', 'matte', 'natural']).optional()
+	ambientColor: z.enum(['warm', 'cool', 'neutral', 'none']).optional()
 });
 
 const rgbSchema = z.object({

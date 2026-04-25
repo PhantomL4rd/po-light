@@ -1,14 +1,11 @@
 <script lang="ts">
 import {
 	AMBIENT_COLORS,
-	FACE_TYPES,
 	FRAMINGS,
 	GROUP_SIZES,
 	LOCATIONS,
-	SHADOW_PREFS,
 	SKIN_TONES,
 	SUN_EXPOSURES,
-	TEXTURE_PREFS,
 	TIME_OF_DAYS,
 	WEATHERS
 } from '$lib/constants';
@@ -35,7 +32,6 @@ $effect(() => {
 </script>
 
 <div class="space-y-4">
-	<SelectField label="顔の輪郭タイプ" options={FACE_TYPES} value={formData.faceType} onchange={(v) => (formData.faceType = v)} />
 	<SelectField label="フレーミング" options={FRAMINGS} value={formData.framing} onchange={(v) => (formData.framing = v)} />
 	<SelectField label="人数" options={GROUP_SIZES} value={formData.groupSize} onchange={(v) => (formData.groupSize = v)} />
 	<SelectField label="肌色タイプ" options={SKIN_TONES} value={formData.skinTone} onchange={(v) => (formData.skinTone = v)} />
@@ -50,6 +46,4 @@ $effect(() => {
 	{/if}
 	<ToggleField label="逆光" bind:checked={backlight} />
 	<SelectField label="既存の環境光の色" options={AMBIENT_COLORS} value={formData.ambientColor} onchange={(v) => (formData.ambientColor = v)} />
-	<SelectField label="影の好み" options={SHADOW_PREFS} value={formData.shadowPref} onchange={(v) => (formData.shadowPref = v)} />
-	<SelectField label="質感の好み" options={TEXTURE_PREFS} value={formData.texturePref} onchange={(v) => (formData.texturePref = v)} />
 </div>

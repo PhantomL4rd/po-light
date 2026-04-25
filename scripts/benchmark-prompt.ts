@@ -93,9 +93,6 @@ const OLD_PROMPT = `あなたはFF14のグループポーズ（GPose）ライテ
 - RGBは0〜255の整数
 - 半身撮影の基本値：ライト1=RGB70、ライト2=RGB40、ライト3=RGB50
 - 全身撮影の基本値：ライト1=RGB90、ライト2=RGB30、ライト3=環境に合わせて色付き
-- 顔の輪郭タイプ「丸め・小柄」：ライト1を真横から耳狙い(RGB60)、ライト2を斜めからメイン(RGB50)、ライト3を耳裏からほっぺ(RGB40)。全体的に立体感を出すライティングが有効
-- 顔の輪郭タイプ「角・突起あり」：コントラスト強め、ライト1の当て角がシビアなため微調整が必要
-- 顔の輪郭タイプ「標準」：基本値をそのまま適用でOK
 - 褐色キャラ：ライト1を強め調整
 - 青肌キャラ：ライト1をRGB50スタートで明るすぎないよう調整
 - 異色（黒）：ライト1=RGB70、ライト2=RGB30、ライト3=RGB30
@@ -105,9 +102,7 @@ const OLD_PROMPT = `あなたはFF14のグループポーズ（GPose）ライテ
 【ライティング比率の理論】
 - 標準的な照度比率：キーライト=1（基準）、フィルライト=1/3〜1/2、バックライト=1/2〜1以上
 - RGB値に換算するとキー=70の場合、フィル=23〜35、バック=35〜70が標準
-- 陰影強め（ドラマチック）：キーとフィルの差を大きく（例：ライト1=90、ライト2=20〜25）
-- 自然な陰影：キーとフィルの差を中程度（例：ライト1=70、ライト2=30〜35）
-- フラット：キーとフィルの差を小さく（例：ライト1=60、ライト2=40〜50）
+- 自然な陰影が基本：キーとフィルの差を中程度に保つ（例：ライト1=70、ライト2=30〜35）
 - フィルライトが強すぎると立体感が失われる。「のっぺりしたくない」場合はフィルを1/3以下に抑える
 - フィルライトの配置：キーより正面に近い角度から当てる（キーが左45度ならフィルは右30度）
 - フィルライトで新たな影を作らないこと
@@ -120,9 +115,7 @@ const OLD_PROMPT = `あなたはFF14のグループポーズ（GPose）ライテ
 - RGB均等（例：r=70,g=70,b=70）：ニュートラルな白色光・スタジオ撮影向き
 - 環境光に色がある場合：バックライト（ライト3）をその色に合わせると馴染みやすい
 - 肌に血色感を出したいとき：ライト1のRを若干強めに（例：r=80,g=65,b=60）
-- 質感ツヤ感・透明感：ライト強度をやや高め＋バックライトで輪郭を強調
-- 質感マット：ライト強度を抑えめ＋フィルライトで影を均一に
-- 質感ナチュラル：基本値をそのまま適用
+- 質感はナチュラル基準：基本値をそのまま適用し、誇張した質感演出は行わない
 
 【環境別の対応方針】
 - 逆光あり：キャラクターライティングを上げ（50〜100）、フィルライトでキャラ正面を補う
@@ -139,7 +132,6 @@ const NEW_PROMPT = `あなたはFF14のグループポーズ（GPose）ライテ
 - ライト3（バックライト）: 輪郭分離や雰囲気づくりに使う。演出意図に応じて強弱を調整する
 - GPoseのRGB値は現実の照明と異なり、少ない値で十分に明るい。基準値はキー=70、フィル=40、バック=50程度。ここから条件に応じて上下させること
 - RGB値の実用範囲は概ね20〜120。これを超える値は不自然な結果になりやすい
-- 影の好みが強いほど、キーとフィルの輝度差を広げる。柔らかくしたいほど差を狭める
 - フィルが強すぎると立体感が失われ、のっぺりした印象になる
 - 色温度は撮影の雰囲気に合わせる: 暖色寄りは血色感と柔らかさ、寒色寄りは静けさと透明感を出しやすい
 - 環境光に色がある場合、少なくとも1灯をその色味に寄せると馴染みやすい
@@ -154,11 +146,6 @@ const NEW_PROMPT = `あなたはFF14のグループポーズ（GPose）ライテ
 - 半身・ソロ撮影: 照射範囲が狭いタイプ（タイプ1）が適する
 - 全身撮影: より広いタイプ（タイプ2）が適する
 - 複数人撮影: タイプ2以上で全員をカバーする
-
-【顔の輪郭への対応】
-- 丸め・小柄な輪郭: 立体感を強調するライティングが有効。横方向や耳周りからの光で陰影をつける
-- 角・突起がある輪郭: コントラスト強めが映えるが、光の角度が繊細なため方向を慎重に決める
-- 標準的な輪郭: 基本的な3灯配置で自然に仕上がる
 
 【環境への対応】
 - 逆光がある場合: キャラクターライティングを上げ、フィルライトで正面を補う
@@ -181,7 +168,6 @@ const NEW_PROMPT = `あなたはFF14のグループポーズ（GPose）ライテ
 // ─── Test Cases ───
 
 const LABEL_MAP: Record<string, Record<string, string>> = {
-	faceType: { round_small: '丸め・小柄', standard: '標準', angular: '角・突起あり' },
 	framing: { half_body: '半身', full_body: '全身' },
 	groupSize: { solo: 'ソロ', group: '複数人' },
 	skinTone: {
@@ -194,62 +180,60 @@ const LABEL_MAP: Record<string, Record<string, string>> = {
 	location: { studio: 'スタジオ（ハウジング等）', outdoor: '屋外' },
 	timeOfDay: { day: '昼', night: '夜' },
 	ambientColor: { warm: '暖色系', cool: '寒色系', neutral: 'ニュートラル', none: 'ほぼなし' },
-	shadowPref: { strong: '陰影強め', natural: '自然', flat: 'フラットでいい' },
-	texturePref: { glossy: 'ツヤ感・透明感', matte: 'マット', natural: 'ナチュラル' },
 	mood: { bright: '自然に明るく', doll_like: 'ドール感・立体的', emotional: 'エモい・暗め', cool: 'かっこよく' },
 };
 
 const TEST_CASES: TestCase[] = [
 	// ベースケース: 典型的な入力
 	{
-		id: 1, label: 'ベース: 標準/半身/ソロ/通常（かんたんモード）', kind: 'base',
-		input: { faceType: 'standard', framing: 'half_body', groupSize: 'solo', skinTone: 'normal' },
+		id: 1, label: 'ベース: 半身/ソロ/通常（最小入力）', kind: 'base',
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'normal' },
 	},
 	{
-		id: 2, label: 'ベース: 標準/全身/ソロ/通常/屋外昼/明るく', kind: 'base',
-		input: { faceType: 'standard', framing: 'full_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'day', mood: 'bright' },
+		id: 2, label: 'ベース: 全身/ソロ/通常/屋外昼/明るく', kind: 'base',
+		input: { framing: 'full_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'day', mood: 'bright' },
 	},
 	{
-		id: 3, label: 'ベース: 丸め/半身/ソロ/褐色/ドール感', kind: 'base',
-		input: { faceType: 'round_small', framing: 'half_body', groupSize: 'solo', skinTone: 'tan', mood: 'doll_like' },
+		id: 3, label: 'ベース: 半身/ソロ/褐色/ドール感', kind: 'base',
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'tan', mood: 'doll_like' },
 	},
 	{
-		id: 4, label: 'ベース: 角/全身/複数人/青肌/屋外夜/かっこよく', kind: 'base',
-		input: { faceType: 'angular', framing: 'full_body', groupSize: 'group', skinTone: 'blue', location: 'outdoor', timeOfDay: 'night', mood: 'cool' },
+		id: 4, label: 'ベース: 全身/複数人/青肌/屋外夜/かっこよく', kind: 'base',
+		input: { framing: 'full_body', groupSize: 'group', skinTone: 'blue', location: 'outdoor', timeOfDay: 'night', mood: 'cool' },
 	},
 	// 境界ケース: 極端な条件
 	{
-		id: 5, label: '境界: 異色白/スタジオ/フラット', kind: 'boundary',
-		input: { faceType: 'standard', framing: 'half_body', groupSize: 'solo', skinTone: 'light_exotic', location: 'studio', shadowPref: 'flat' },
+		id: 5, label: '境界: 異色白/スタジオ', kind: 'boundary',
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'light_exotic', location: 'studio' },
 	},
 	{
-		id: 6, label: '境界: 異色黒/屋外夜/エモい/陰影強め', kind: 'boundary',
-		input: { faceType: 'round_small', framing: 'full_body', groupSize: 'solo', skinTone: 'dark_exotic', location: 'outdoor', timeOfDay: 'night', shadowPref: 'strong', mood: 'emotional' },
+		id: 6, label: '境界: 異色黒/屋外夜/エモい', kind: 'boundary',
+		input: { framing: 'full_body', groupSize: 'solo', skinTone: 'dark_exotic', location: 'outdoor', timeOfDay: 'night', mood: 'emotional' },
 	},
 	{
-		id: 7, label: '境界: 角/半身/逆光/屋外昼', kind: 'boundary',
-		input: { faceType: 'angular', framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'day', backlight: true },
+		id: 7, label: '境界: 半身/逆光/屋外昼', kind: 'boundary',
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'day', backlight: true },
 	},
 	{
-		id: 8, label: '境界: 褐色/全身/夜/陰影強め/寒色/ツヤ', kind: 'boundary',
-		input: { faceType: 'standard', framing: 'full_body', groupSize: 'solo', skinTone: 'tan', location: 'outdoor', timeOfDay: 'night', shadowPref: 'strong', ambientColor: 'cool', texturePref: 'glossy' },
+		id: 8, label: '境界: 褐色/全身/夜/寒色', kind: 'boundary',
+		input: { framing: 'full_body', groupSize: 'solo', skinTone: 'tan', location: 'outdoor', timeOfDay: 'night', ambientColor: 'cool' },
 	},
 	// 対照ケース: 1条件だけ変えたペア
 	{
-		id: 9, label: '対照A: 標準/半身/屋外【昼】/自然', kind: 'contrast', contrastPair: 10,
-		input: { faceType: 'standard', framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'day', shadowPref: 'natural', mood: 'bright' },
+		id: 9, label: '対照A: 半身/屋外【昼】', kind: 'contrast', contrastPair: 10,
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'day', mood: 'bright' },
 	},
 	{
-		id: 10, label: '対照A: 標準/半身/屋外【夜】/自然', kind: 'contrast', contrastPair: 9,
-		input: { faceType: 'standard', framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'night', shadowPref: 'natural', mood: 'bright' },
+		id: 10, label: '対照A: 半身/屋外【夜】', kind: 'contrast', contrastPair: 9,
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'night', mood: 'bright' },
 	},
 	{
-		id: 11, label: '対照B: 標準/半身/屋外夜/【自然に明るく】', kind: 'contrast', contrastPair: 12,
-		input: { faceType: 'standard', framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'night', mood: 'bright' },
+		id: 11, label: '対照B: 半身/屋外夜/【自然に明るく】', kind: 'contrast', contrastPair: 12,
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'night', mood: 'bright' },
 	},
 	{
-		id: 12, label: '対照B: 標準/半身/屋外夜/【エモい・暗め】', kind: 'contrast', contrastPair: 11,
-		input: { faceType: 'standard', framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'night', mood: 'emotional' },
+		id: 12, label: '対照B: 半身/屋外夜/【エモい・暗め】', kind: 'contrast', contrastPair: 11,
+		input: { framing: 'half_body', groupSize: 'solo', skinTone: 'normal', location: 'outdoor', timeOfDay: 'night', mood: 'emotional' },
 	},
 ];
 
@@ -313,15 +297,12 @@ function buildUserPrompt(input: Record<string, unknown>): string {
 			lines.push(`逆光: ${value ? 'あり' : 'なし'}`);
 		} else if (labelMap && typeof value === 'string') {
 			const fieldLabels: Record<string, string> = {
-				faceType: '顔の輪郭タイプ',
 				framing: 'フレーミング',
 				groupSize: '人数',
 				skinTone: '肌色タイプ',
 				location: '撮影場所',
 				timeOfDay: '時間帯',
 				ambientColor: '環境光の色',
-				shadowPref: '影の好み',
-				texturePref: '質感の好み',
 				mood: '雰囲気',
 			};
 			lines.push(`${fieldLabels[key] ?? key}: ${labelMap[value] ?? value}`);

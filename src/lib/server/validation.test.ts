@@ -2,9 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { validateAdvisorResponse, validateInput } from './validation';
 
 describe('validateInput', () => {
-	it('かんたんモードの有効な入力を受け付ける', () => {
+	it('必須フィールドのみの入力を受け付ける', () => {
 		const input = {
-			faceType: 'standard',
 			framing: 'half_body',
 			groupSize: 'solo',
 			skinTone: 'normal'
@@ -12,9 +11,8 @@ describe('validateInput', () => {
 		expect(validateInput(input)).toEqual(input);
 	});
 
-	it('詳細モードの有効な入力を受け付ける', () => {
+	it('全フィールド指定の入力を受け付ける', () => {
 		const input = {
-			faceType: 'round_small',
 			framing: 'full_body',
 			groupSize: 'group',
 			skinTone: 'tan',
@@ -23,9 +21,7 @@ describe('validateInput', () => {
 			weather: 'sunny',
 			backlight: true,
 			sunExposure: 'direct',
-			ambientColor: 'warm',
-			shadowPref: 'strong',
-			texturePref: 'glossy'
+			ambientColor: 'warm'
 		};
 		expect(validateInput(input)).toEqual(input);
 	});
@@ -33,18 +29,16 @@ describe('validateInput', () => {
 	it('必須フィールドが欠けている場合はエラー', () => {
 		expect(() =>
 			validateInput({
-				faceType: 'standard',
 				framing: 'half_body'
 				// groupSize, skinTone missing
 			})
 		).toThrow();
 	});
 
-	it('無効な選択��値はエラー', () => {
+	it('無効な選択値はエラー', () => {
 		expect(() =>
 			validateInput({
-				faceType: 'invalid_value',
-				framing: 'half_body',
+				framing: 'invalid_value',
 				groupSize: 'solo',
 				skinTone: 'normal'
 			})
@@ -57,7 +51,7 @@ describe('validateAdvisorResponse', () => {
 		lights: [
 			{
 				id: 1,
-				role: '���インライト（キーライト）',
+				role: 'メインライト（キーライト）',
 				type: 1,
 				rgb: { r: 70, g: 70, b: 70 },
 				direction: 'キャラの顔の左斜め前45度',

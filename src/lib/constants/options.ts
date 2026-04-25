@@ -1,13 +1,10 @@
 import type {
 	AmbientColor,
-	FaceType,
 	Framing,
 	GroupSize,
 	Location,
-	ShadowPref,
 	SkinTone,
 	SunExposure,
-	TexturePref,
 	TimeOfDay,
 	Weather
 } from '$lib/types';
@@ -16,12 +13,6 @@ interface Option<T extends string> {
 	value: T;
 	label: string;
 }
-
-export const FACE_TYPES: readonly Option<FaceType>[] = [
-	{ value: 'round_small', label: '丸め・小柄' },
-	{ value: 'standard', label: '標準' },
-	{ value: 'angular', label: '角・突起あり' }
-] as const;
 
 export const FRAMINGS: readonly Option<Framing>[] = [
 	{ value: 'half_body', label: '半身' },
@@ -69,18 +60,6 @@ export const AMBIENT_COLORS: readonly Option<AmbientColor>[] = [
 	{ value: 'cool', label: '寒色系' },
 	{ value: 'neutral', label: 'ニュートラル' },
 	{ value: 'none', label: 'ほぼなし' }
-] as const;
-
-export const SHADOW_PREFS: readonly Option<ShadowPref>[] = [
-	{ value: 'strong', label: '陰影強め' },
-	{ value: 'natural', label: '自然' },
-	{ value: 'flat', label: 'フラット' }
-] as const;
-
-export const TEXTURE_PREFS: readonly Option<TexturePref>[] = [
-	{ value: 'glossy', label: 'ツヤ感・透明感' },
-	{ value: 'matte', label: 'マット' },
-	{ value: 'natural', label: 'ナチュラル' }
 ] as const;
 
 /** value → label の変換ヘルパー */

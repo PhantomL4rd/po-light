@@ -3,7 +3,7 @@ import RotateCcw from '@lucide/svelte/icons/rotate-ccw';
 import type { HistoryEntry } from '$lib/client/history';
 import { Button } from '$lib/components/ui/button';
 import * as Card from '$lib/components/ui/card';
-import { FACE_TYPES, FRAMINGS, findLabel, GROUP_SIZES, SKIN_TONES } from '$lib/constants';
+import { FRAMINGS, findLabel, GROUP_SIZES, SKIN_TONES } from '$lib/constants';
 
 let { entry, onreuse }: { entry: HistoryEntry; onreuse: () => void } = $props();
 </script>
@@ -12,7 +12,7 @@ let { entry, onreuse }: { entry: HistoryEntry; onreuse: () => void } = $props();
 	<Card.Header>
 		<div class="flex items-center justify-between">
 			<Card.Title class="text-sm">
-				{findLabel(FACE_TYPES, entry.input.faceType)} / {findLabel(FRAMINGS, entry.input.framing)} / {findLabel(GROUP_SIZES, entry.input.groupSize)} / {findLabel(SKIN_TONES, entry.input.skinTone)}
+				{findLabel(FRAMINGS, entry.input.framing)} / {findLabel(GROUP_SIZES, entry.input.groupSize)} / {findLabel(SKIN_TONES, entry.input.skinTone)}
 			</Card.Title>
 		</div>
 		<p class="text-xs text-muted-foreground">
