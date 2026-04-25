@@ -19,7 +19,7 @@ function handleSave() {
 </script>
 
 {#if saved}
-	<div class="rounded-md border border-green-500/50 bg-green-500/10 px-4 py-3 text-center text-sm text-green-700 dark:text-green-400">
+	<div class="rounded-md border border-liked/30 bg-liked/10 px-4 py-3 text-center text-sm text-liked">
 		保存しました
 	</div>
 {:else}
